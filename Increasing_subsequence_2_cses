@@ -1,0 +1,68 @@
+int longestIncreasingSubsequence (vector<int> &nums){
+    int n = nums.size();
+
+    vector<int> dp(n, 1);
+
+    for(int i=1;i<n;i++){
+        for(int j=i-1;j>=0;j--){
+            if(nums[i] > nums[j]) dp[i] += dp[j];
+        }
+    }
+
+    int sum = 0;
+
+    for(int i=0;i<n;i++){
+        sum += dp[i];
+    }
+
+    return sum;
+}
+
+// ============================================================
+// LEVEL 8 — DP + PREFIX SUM
+// STAGE 3 — PREFIX-OPTIMIZED DP
+// ============================================================
+//
+// 629 — K Inverse Pairs Array
+// ✅ DP state understood
+// ✅ Transition understood
+// ✅ Prefix Sum optimization understood
+//
+// Important:
+// Prefix Sum is useful when DP transition needs
+// a SUM over a CONTIGUOUS RANGE of previous states.
+//
+// Example:
+// dp[i] = dp[L] + dp[L+1] + ... + dp[R]
+//
+// Then:
+// prefix[R] - prefix[L-1]
+//
+// ------------------------------------------------------------
+//
+// Increasing Subsequence II
+// ✅ Plain DP understood
+// ✅ dp[i] = number of increasing subsequences ending at i
+// ✅ O(N^2) solution understood
+//
+// Important limitation:
+// Valid previous states are based on VALUE (nums[j] < nums[i]),
+// not necessarily a contiguous INDEX range.
+// Therefore ordinary Prefix Sum does NOT directly work.
+//
+// Advanced optimization → Coordinate Compression + Fenwick Tree
+// We will learn this later in LEVEL 12.
+//
+// ------------------------------------------------------------
+//
+// NEXT:
+// 1. Genuine Prefix-optimized DP problem
+// 2. CSES Prefix + DP problem
+// 3. Harder contest problem
+// 4. Blind re-solve / pattern recognition
+//
+// RULE:
+// Do NOT force Prefix Sum.
+// First inspect the DP transition.
+// If previous states form a contiguous range → think Prefix.
+// ============================================================
