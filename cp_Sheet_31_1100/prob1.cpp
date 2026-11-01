@@ -33,25 +33,19 @@ int main() {
         }
         
         vector<long long> ans(n);
-
-        for(int i=0;i<n;i++){
-            long long count = 0;
+        
+        ans[temp[n-1][1]] = n - 1;
+        
+        for(int i=n-2;i>=0;i--){
             long long sum = prefix[i];
-
-            if(i > 0) sum = prefix[i-1] + temp[i][0];
-
-            count += i;
-
-            for(int j=i+1;j<n;j++){
-                if(sum >= temp[j][0]){
-                    count++;
-                    sum += temp[j][0];
-                }
-
-                else break;
+            
+            if(sum >= temp[i+1][0]){
+                ans[temp[i][1]] = ans[temp[i+1][1]];
             }
-
-            ans[temp[i][1]] = count;
+            
+            else if(sum < temp[i + 1][0]){
+                ans[temp[i][1]] = i;
+            }
         }
         
         
